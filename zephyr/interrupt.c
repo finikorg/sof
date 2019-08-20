@@ -47,3 +47,19 @@ uint32_t interrupt_disable(uint32_t irq)
 
 	return 0;
 }
+
+/* FIXME write implementation */
+void platform_interrupt_mask(uint32_t irq, uint32_t mask)
+{
+	trace_irq("%s: irq %x mask %x", __func__, irq, mask);
+}
+
+void platform_interrupt_unmask(uint32_t irq, uint32_t mask)
+{
+	trace_irq("%s: irq %x mask %x", __func__, irq, mask);
+}
+
+void platform_interrupt_clear(uint32_t irq, uint32_t mask)
+{
+	trace_irq("%s: irq %x mask %x", __func__, irq, mask);
+}
