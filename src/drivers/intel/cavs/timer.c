@@ -96,6 +96,8 @@ static int platform_timer_register(struct timer *timer,
 {
 	int err;
 
+	panic("timer");
+
 	/* register timer interrupt */
 	err = interrupt_register(timer->irq, IRQ_MANUAL_UNMASK, handler, arg);
 	if (err < 0)

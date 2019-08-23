@@ -1460,6 +1460,8 @@ static int dmic_probe(struct dai *dai)
 
 	trace_dmic("dmic_probe()");
 
+	panic("test");
+
 	if (dai_get_drvdata(dai))
 		return -EEXIST; /* already created */
 
@@ -1483,6 +1485,7 @@ static int dmic_probe(struct dai *dai)
 		rfree(dmic);
 		return ret;
 	}
+
 
 	/* Enable DMIC power */
 	pm_runtime_get_sync(DMIC_POW, dai->index);

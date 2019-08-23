@@ -198,6 +198,7 @@ int ipc_buffer_new(struct ipc *ipc, struct sof_ipc_buffer *desc)
 	ibd = rzalloc(RZONE_RUNTIME | RZONE_FLAG_UNCACHED, SOF_MEM_CAPS_RAM,
 		      sizeof(struct ipc_comp_dev));
 	if (ibd == NULL) {
+		panic("mem");
 		rfree(buffer);
 		return -ENOMEM;
 	}

@@ -192,6 +192,8 @@ static struct comp_dev *dai_new(struct sof_ipc_comp *comp)
 
 	comp_set_drvdata(dev, dd);
 
+	trace_dai("dai->type %d dai->index %d", dai->type, dai->dai_index);
+
 	dd->dai = dai_get(dai->type, dai->dai_index, DAI_CREAT);
 	if (!dd->dai) {
 		trace_dai_error("dai_new() error: dai_get() failed to create "
@@ -199,12 +201,19 @@ static struct comp_dev *dai_new(struct sof_ipc_comp *comp)
 		goto error;
 	}
 
+	trace_dai("dd->dai %p", dd->dai);
+
+
 	/* request GP LP DMA with shared access privilege */
 	dir = dai->direction == SOF_IPC_STREAM_PLAYBACK ?
 			DMA_DIR_MEM_TO_DEV : DMA_DIR_DEV_TO_MEM;
 
+	trace_dai("dir %d", dir);
 	caps = dai_get_info(dd->dai, DAI_INFO_DMA_CAPS);
+	trace_dai("caps %x", caps);
 	dma_dev = dai_get_info(dd->dai, DAI_INFO_DMA_DEV);
+
+	trace_dai("before dma_get");
 
 	dd->dma = dma_get(dir, caps, dma_dev, DMA_ACCESS_SHARED);
 	if (!dd->dma) {
@@ -213,6 +222,8 @@ static struct comp_dev *dai_new(struct sof_ipc_comp *comp)
 		goto error;
 	}
 
+	trace_dai("dma %p", dd->dma);
+
 	dma_sg_init(&dd->config.elem_array);
 	dd->dai_pos = NULL;
 	dd->dai_pos_blks = 0;
@@ -220,6 +231,7 @@ static struct comp_dev *dai_new(struct sof_ipc_comp *comp)
 	dd->chan = DMA_CHAN_INVALID;
 
 	dev->state = COMP_STATE_READY;
+
 	return dev;
 
 error:

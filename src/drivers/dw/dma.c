@@ -264,6 +264,8 @@ static int dw_dma_start(struct dma *dma, int channel)
 	uint32_t words_per_tfr = 0;
 #endif
 
+	panic("dma");
+
 	if (channel >= dma->plat_data.channels ||
 	    channel == DMA_CHAN_INVALID) {
 		trace_dwdma_error("dw_dma_start() error: dma %d invalid "
@@ -1094,6 +1096,8 @@ static inline int dw_dma_interrupt_register(struct dma *dma, int channel)
 	int cpu = cpu_get_id();
 #endif
 	int ret;
+
+	panic("dma");
 
 	if (p->chan[channel].irq_disabled) {
 		tracev_dwdma("dw_dma_interrupt_register(): dma %d channel %d "

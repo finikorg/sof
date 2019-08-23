@@ -60,6 +60,8 @@ static void ssp_empty_rx_fifo(struct dai *dai)
 	uint32_t entries;
 	uint32_t i;
 
+	trace_ssp("dai %p", dai);
+
 	spin_lock(&dai->lock);
 
 	sssr = ssp_read(dai, SSSR);
@@ -147,6 +149,8 @@ static inline int ssp_set_config(struct dai *dai,
 	int clk_index = -1;
 	int ret = 0;
 
+	panic("here");
+
 	spin_lock(&dai->lock);
 
 	/* is playback/capture already running */
@@ -159,6 +163,8 @@ static inline int ssp_set_config(struct dai *dai,
 	}
 
 	trace_ssp("ssp_set_config(), config->format = 0x%4x", config->format);
+
+
 
 	/* reset SSP settings */
 	/* sscr0 dynamic settings are DSS, EDSS, SCR, FRDC, ECS */
@@ -726,6 +732,8 @@ static void ssp_start(struct dai *dai, int direction)
 {
 	struct ssp_pdata *ssp = dai_get_drvdata(dai);
 
+	panic("ssp");
+
 	spin_lock(&dai->lock);
 
 	/* enable port */
@@ -754,6 +762,7 @@ static void ssp_stop(struct dai *dai, int direction)
 {
 	struct ssp_pdata *ssp = dai_get_drvdata(dai);
 
+	panic("ssp");
 	spin_lock(&dai->lock);
 
 	/* wait to get valid fifo status */
@@ -795,6 +804,7 @@ static int ssp_trigger(struct dai *dai, int cmd, int direction)
 {
 	struct ssp_pdata *ssp = dai_get_drvdata(dai);
 
+	panic("ssp");
 	trace_ssp("ssp_trigger() cmd %d", cmd);
 
 	switch (cmd) {
@@ -828,6 +838,8 @@ static int ssp_trigger(struct dai *dai, int cmd, int direction)
 static int ssp_probe(struct dai *dai)
 {
 	struct ssp_pdata *ssp;
+
+	trace_ssp("%s", __func__);
 
 	if (dai_get_drvdata(dai))
 		return -EEXIST; /* already created */

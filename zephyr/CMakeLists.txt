@@ -51,8 +51,8 @@ zephyr_library_sources(
 	#../src/lib/interrupt.c
 	#../src/lib/pm_runtime.c
 	../src/lib/clk.c
-	#../src/lib/dma.c
-	#../src/lib/dai.c
+	../src/lib/dma.c
+	../src/lib/dai.c
 	#../src/lib/panic.c
 	#../src/lib/wait.c
 	# SOF src/math
@@ -61,9 +61,12 @@ zephyr_library_sources(
 	# SOF src/drivers
 	../src/drivers/intel/cavs/ssp.c
 	../src/drivers/intel/cavs/hda.c
+	../src/drivers/intel/cavs/hda-dma.c
 	../src/drivers/intel/cavs/dmic.c
+	../src/drivers/dw/dma.c
 	# Platform code
-	#../src/platform/intel/cavs/dai.c
+	../src/platform/intel/cavs/dai.c
+	../src/platform/intel/cavs/dma.c
 	#../src/platform/intel/cavs/pm_runtime.c
 )
 

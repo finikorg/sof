@@ -40,6 +40,7 @@ int schedule_task_init(struct task *task, uint16_t type, uint16_t priority,
 void schedule_task(struct task *task, uint64_t start, uint64_t deadline,
 		   uint32_t flags)
 {
+	panic("sched");
 	if (schedulers[task->type]->schedule_task)
 		schedulers[task->type]->schedule_task(task, start, deadline,
 			flags);

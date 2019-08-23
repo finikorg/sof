@@ -42,13 +42,19 @@ struct dai *dai_get(uint32_t type, uint32_t index, uint32_t flags)
 	struct dai_type_info *dti;
 	struct dai *d;
 
+
 	dti = dai_find_type(type);
-	if (!dti)
-		return NULL; /* type not found */
+	if (!dti) {
+		trace_dai("type not found");
+		return NULL;
+	}
 
 	for (d = dti->dai_array; d < dti->dai_array + dti->num_dais; d++) {
+		trace_dai("d %p num_dais %d", d, dti->num_dais);
 		if (d->index != index)
 			continue;
+		trace_dai("index %d", index);
+
 		/* device created? */
 		spin_lock(&d->lock);
 		if (d->sref == 0) {
@@ -62,12 +68,15 @@ struct dai *dai_get(uint32_t type, uint32_t index, uint32_t flags)
 
 		trace_dai("dai_get(), d = %p, sref = %d", (void *)d, d->sref);
 
+
 		spin_unlock(&d->lock);
 
 		return !ret ? d : NULL;
+
 	}
 	trace_error(TRACE_CLASS_DAI, "dai_get() error: "
 		    "type = %d, index = %d not found", type, index);
+
 	return NULL;
 }
 

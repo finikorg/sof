@@ -133,5 +133,6 @@ int dai_init(void)
 		spinlock_init(&dmic[i].lock);
 #endif
 	dai_install(dti, ARRAY_SIZE(dti));
+
 	return 0;
 }
